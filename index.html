@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arnesh & Swathi | 11.09.27</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --vintage-purple: #3b2a45; 
+            --gold: #d4af37;
+            --gold-gradient: linear-gradient(145deg, #f3d078, #d4af37, #8a6d3b);
+            --paper: #fffcf9;
+        }
+
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+            background: #0f0c29;
+            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+            font-family: 'Playfair Display', serif;
+            overflow: hidden;
+        }
+
+        .stars {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+            z-index: 0; opacity: 0.5; pointer-events: none;
+        }
+
+        /* Music Toggle */
+        .music-control {
+            position: fixed; top: 20px; right: 20px; z-index: 100;
+            background: rgba(255,255,255,0.1); border: 1px solid var(--gold);
+            border-radius: 50%; width: 40px; height: 40px;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; color: var(--gold); font-size: 20px;
+        }
+
+        .invitation-wrapper {
+            position: relative; width: 340px; height: 480px;
+            perspective: 1500px; z-index: 10;
+        }
+
+        .card {
+            position: absolute; bottom: 0; left: 10px; width: 320px; height: 220px;
+            background: var(--paper);
+            background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+            padding: 30px 20px; box-sizing: border-box; text-align: center;
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1; box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .envelope {
+            position: absolute; bottom: 0; width: 100%; height: 260px;
+            background-color: var(--vintage-purple);
+            border-radius: 0 0 8px 8px; z-index: 3;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        .flap {
+            position: absolute; top: 220px; width: 100%; height: 200px;
+            background-color: var(--vintage-purple);
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            z-index: 5; transform-origin: top;
+            transition: transform 0.8s ease;
+        }
+
+        .wax-seal {
+            position: absolute; top: 150px; left: 50%;
+            transform: translateX(-50%); width: 75px; height: 75px;
+            background: var(--gold-gradient); border-radius: 50%;
+            z-index: 6; cursor: pointer;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .wax-seal::after {
+            content: "A & S"; font-family: 'Dancing Script';
+            color: #5c4b24; font-size: 22px; font-weight: bold;
+        }
+
+        .open .flap { transform: rotateX(180deg); z-index: 0; }
+        .open .wax-seal { opacity: 0; pointer-events: none; }
+        .open .card { height: 720px; transform: translateY(-420px); z-index: 10; overflow-y: auto; }
+        .open .content { opacity: 1; transition: opacity 0.8s 0.8s; }
+
+        .content { opacity: 0; }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: var(--vintage-purple); margin: 5px 0; }
+        
+        #timer {
+            display: flex; justify-content: space-around;
+            margin: 10px 0; font-size: 0.7rem; color: var(--vintage-purple);
+            font-weight: bold; border-top: 1px solid #eee; padding-top: 10px;
+        }
+        .timer-unit span { font-size: 1.1rem; color: var(--gold); display: block;}
+
+        .details { font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; margin: 10px 0; border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold); padding: 8px 0; }
+        
+        .btn-container { display: flex; flex-direction: column; gap: 8px; margin-top: 15px; align-items: center; padding-bottom: 20px;}
+        .btn {
+            display: inline-block; width: 85%; padding: 10px;
+            text-decoration: none; border-radius: 20px; font-size: 0.7rem; font-weight: bold;
+            transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn-rsvp { background: var(--vintage-purple); color: white; }
+        .btn-sec { background: transparent; color: var(--vintage-purple); border: 1px solid var(--gold); }
+    </style>
+</head>
+<body>
+
+    <div class="stars"></div>
+    
+    <div class="music-control" onclick="toggleMusic()">🎵</div>
+    <audio id="bgMusic" loop>
+        <source src="YOUR_MUSIC_URL_HERE.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="invitation-wrapper" id="inviteBox">
+        <div class="card">
+            <div class="content">
+                <p style="font-size: 0.6rem; letter-spacing: 3px; margin: 0;">SAVE THE DATE</p>
+                <h1>Arnesh & Swathi</h1>
+                
+                <div id="timer">
+                    <div class="timer-unit"><span id="days">00</span>days</div>
+                    <div class="timer-unit"><span id="hours">00</span>hrs</div>
+                    <div class="timer-unit"><span id="mins">00</span>mins</div>
+                    <div class="timer-unit"><span id="secs">00</span>secs</div>
+                </div>
+
+                <div class="details">
+                    Saturday, 11 September 2027<br>
+                    At Six O'Clock in the Evening
+                </div>
+
+                <p style="font-size: 0.85rem; margin: 0;"><strong>Swiss-Belhotel Harbour Bay</strong></p>
+                <p style="font-size: 0.75rem; color: #666; margin: 2px 0;">Batam, Indonesia</p>
+
+                <div class="btn-container">
+                    <a href="https://swathiganesh-droid.github.io/wedding-invite/" class="btn btn-rsvp">Confirm RSVP</a>
+                    <a href="https://maps.app.goo.gl/9GvXmFfLh9fX9f9f9" target="_blank" class="btn btn-sec">📍 View Location</a>
+                    <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Wedding+of+Arnesh+and+Swathi&dates=20270911T110000Z/20270911T160000Z&location=Swiss-Belhotel+Harbour+Bay+Batam" target="_blank" class="btn btn-sec">📅 Save to Calendar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="flap"></div>
+        <div class="wax-seal" onclick="openInvite()"></div>
+        <div class="envelope"></div>
+    </div>
+
+    <script>
+        function openInvite() {
+            document.getElementById('inviteBox').classList.add('open');
+            // Auto-play music when opened (if browser allows)
+            const music = document.getElementById('bgMusic');
+            music.play().catch(() => console.log("Music waiting for user interaction"));
+        }
+
+        function toggleMusic() {
+            const music = document.getElementById('bgMusic');
+            return music.paused ? music.play() : music.pause();
+        }
+
+        // Countdown Logic
+        const targetDate = new Date("September 11, 2027 18:00:00").getTime();
+        setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            document.getElementById("days").innerHTML = Math.floor(distance / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerHTML = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("mins").innerHTML = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("secs").innerHTML = Math.floor((distance % (1000 * 60)) / 1000);
+        }, 1000);
+    </script>
+</body>
+</html>

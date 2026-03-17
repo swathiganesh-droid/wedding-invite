@@ -1,768 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Arnesh & Swathi</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --purple:#8e57c8;
-      --purple-dark:#6f3faa;
-      --purple-light:#b785eb;
-      --paper:#fffaf6;
-      --paper-2:#fffdfb;
-      --text:#6a5a73;
-      --sage:#7f9a92;
-      --gold:#c49b3a;
-      --gold-dark:#a57d22;
-      --shadow:0 18px 45px rgba(66, 35, 96, 0.18);
-    }
-
-    *{box-sizing:border-box}
-
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      margin:0;
-      min-height:100vh;
-      background:
-        radial-gradient(circle at top, #f3ecfb 0%, #eee7f8 40%, #f8f6fb 100%);
-      font-family:'Playfair Display', serif;
-      color:var(--text);
-      overflow-x:hidden;
-    }
-
-    .bg-glow{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,.5), transparent 28%),
-        radial-gradient(circle at 80% 15%, rgba(255,255,255,.35), transparent 20%),
-        radial-gradient(circle at 50% 85%, rgba(255,255,255,.22), transparent 24%);
-      z-index:0;
-    }
-
-    .petals,
-    .sparkles,
-    .butterflies{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      overflow:hidden;
-      z-index:1;
-    }
-
-    .petal{
-      position:absolute;
-      top:-40px;
-      width:15px;
-      height:22px;
-      background:linear-gradient(180deg, #f1e5ff, #d9bbff);
-      border-radius:70% 30% 70% 30%;
-      opacity:.75;
-      animation:fall linear infinite;
-    }
-
-    @keyframes fall{
-      0%{transform:translateY(-50px) translateX(0) rotate(0deg); opacity:.9;}
-      100%{transform:translateY(110vh) translateX(80px) rotate(360deg); opacity:.15;}
-    }
-
-    .sparkle{
-      position:absolute;
-      width:6px;
-      height:6px;
-      border-radius:50%;
-      background:rgba(196,155,58,.9);
-      box-shadow:0 0 12px rgba(196,155,58,.95);
-      animation:twinkle ease-in-out infinite;
-    }
-
-    @keyframes twinkle{
-      0%,100%{transform:scale(.5); opacity:.2;}
-      50%{transform:scale(1.35); opacity:1;}
-    }
-
-    .butterfly{
-      position:absolute;
-      width:20px;
-      height:20px;
-      opacity:.32;
-      animation:floatButterfly linear infinite;
-    }
-
-    .butterfly::before,
-    .butterfly::after{
-      content:"";
-      position:absolute;
-      width:11px;
-      height:16px;
-      top:2px;
-      background:linear-gradient(180deg, #e2d3fa, #c2d9d2);
-      border-radius:11px 11px 4px 11px;
-    }
-
-    .butterfly::before{
-      left:0;
-      transform:rotate(-25deg);
-    }
-
-    .butterfly::after{
-      right:0;
-      transform:scaleX(-1) rotate(-25deg);
-    }
-
-    @keyframes floatButterfly{
-      0%{transform:translateY(105vh) translateX(0); opacity:0;}
-      15%{opacity:.32;}
-      100%{transform:translateY(-20vh) translateX(70px); opacity:0;}
-    }
-
-    .music-btn{
-      position:fixed;
-      top:16px;
-      right:16px;
-      z-index:10;
-      border:none;
-      border-radius:999px;
-      padding:10px 14px;
-      background:rgba(255,255,255,.92);
-      color:var(--gold-dark);
-      font-size:14px;
-      box-shadow:0 8px 18px rgba(0,0,0,.08);
-      cursor:pointer;
-    }
-
-    .hero{
-      position:relative;
-      z-index:2;
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      padding:28px 16px 44px;
-      text-align:center;
-    }
-
-    .envelope{
-      position:relative;
-      width:360px;
-      height:230px;
-      max-width:92vw;
-      background:
-        linear-gradient(145deg, #9c68d7 0%, #8b54ca 45%, #7d45bc 100%);
-      border-radius:4px;
-      box-shadow:
-        0 22px 40px rgba(70, 32, 107, .28),
-        inset 0 1px 0 rgba(255,255,255,.2),
-        inset 0 -10px 18px rgba(0,0,0,.08);
-      cursor:pointer;
-      transition:transform .8s ease;
-      overflow:visible;
-    }
-
-    .envelope::before{
-      content:"";
-      position:absolute;
-      top:0;
-      left:0;
-      z-index:4;
-      border-left:180px solid transparent;
-      border-right:180px solid transparent;
-      border-top:125px solid #9560d2;
-      filter:brightness(1.03);
-      transform-origin:top;
-      transition:transform .65s .2s ease;
-    }
-
-    .envelope::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(135deg, transparent 49.7%, rgba(255,255,255,.12) 50%, transparent 50.3%),
-        linear-gradient(225deg, transparent 49.7%, rgba(0,0,0,.08) 50%, transparent 50.3%);
-      border-radius:4px;
-      pointer-events:none;
-    }
-
-    .seal{
-      position:absolute;
-      left:50%;
-      top:101px;
-      transform:translateX(-50%);
-      width:66px;
-      height:66px;
-      border-radius:50%;
-      background:
-        radial-gradient(circle at 30% 30%, #ddb46b, #8f5a1f 72%);
-      box-shadow:
-        0 6px 16px rgba(0,0,0,.24),
-        inset 0 2px 4px rgba(255,255,255,.28),
-        inset 0 -2px 5px rgba(0,0,0,.18);
-      z-index:5;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      transition:opacity .3s ease, transform .3s ease;
-    }
-
-    .seal::before{
-      content:"";
-      position:absolute;
-      inset:7px;
-      border-radius:50%;
-      border:1.5px solid rgba(80,40,10,.45);
-    }
-
-    .seal::after{
-      content:"A&S";
-      font-family:'Great Vibes', cursive;
-      font-size:28px;
-      color:#fff3dd;
-      text-shadow:0 1px 1px rgba(70,30,0,.25);
-      position:relative;
-      z-index:2;
-    }
-
-    .inner-card{
-      position:absolute;
-      left:12px;
-      bottom:0;
-      width:336px;
-      max-width:calc(92vw - 24px);
-      height:200px;
-      background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,250,245,.99));
-      box-shadow:0 3px 12px rgba(0,0,0,.08);
-      z-index:2;
-      padding:22px 18px 18px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
-      overflow:hidden;
-      transition:transform .85s .55s ease, height .85s .55s ease;
-    }
-
-    .mini-title{
-      font-family:'Great Vibes', cursive;
-      color:var(--gold-dark);
-      font-size:36px;
-      line-height:1;
-      margin:0;
-    }
-
-    .mini-sub{
-      margin-top:10px;
-      font-size:14px;
-      color:#7d8d87;
-    }
-
-    .mini-names{
-      margin-top:6px;
-      font-family:'Cormorant Garamond', serif;
-      font-size:34px;
-      color:#7c5eb3;
-    }
-
-    .mini-reveal{
-      opacity:0;
-      transition:opacity .7s 1.05s ease;
-      margin-top:10px;
-      font-size:13px;
-      line-height:1.65;
-      width:100%;
-    }
-
-    .mini-line{
-      width:60px;
-      height:1px;
-      background:linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin:10px auto;
-    }
-
-    .envelope.open::before{
-      transform:rotateX(180deg);
-      z-index:0;
-    }
-
-    .envelope.open .seal{
-      opacity:0;
-      pointer-events:none;
-      transform:translateX(-50%) scale(.88);
-    }
-
-    .envelope.open .inner-card{
-      transform:translateY(-138px);
-      height:330px;
-    }
-
-    .envelope.open{
-      transform:translateY(58px);
-    }
-
-    .envelope.open .mini-reveal{
-      opacity:1;
-    }
-
-    .hint{
-      margin-top:20px;
-      font-size:12px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:#8a759f;
-    }
-
-    .full-invite{
-      position:relative;
-      z-index:2;
-      max-width:760px;
-      margin:0 auto;
-      padding:10px 16px 60px;
-    }
-
-    .invite-card{
-      background:rgba(255,253,249,.95);
-      border:1px solid rgba(220,214,228,.9);
-      border-radius:18px;
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
-
-    .invite-card::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      background:
-        radial-gradient(circle at 15% 12%, rgba(232,223,248,.3), transparent 18%),
-        radial-gradient(circle at 85% 16%, rgba(229,241,237,.24), transparent 16%),
-        radial-gradient(circle at 10% 88%, rgba(232,223,248,.2), transparent 15%),
-        radial-gradient(circle at 88% 86%, rgba(229,241,237,.18), transparent 14%);
-    }
-
-    .invite-inner{
-      position:relative;
-      padding:42px 24px;
-      text-align:center;
-    }
-
-    .eyebrow{
-      color:var(--gold-dark);
-      font-size:15px;
-      letter-spacing:.04em;
-      margin-bottom:18px;
-    }
-
-    .name{
-      margin:0;
-      font-family:'Cormorant Garamond', serif;
-      font-size:76px;
-      line-height:.95;
-      font-weight:500;
-      color:#7b978f;
-    }
-
-    .amp{
-      font-family:'Great Vibes', cursive;
-      font-size:58px;
-      line-height:1;
-      color:var(--gold-dark);
-      margin:6px 0;
-    }
-
-    .date-row{
-      margin:32px 0 18px;
-      display:flex;
-      justify-content:center;
-      align-items:flex-end;
-      gap:16px;
-      flex-wrap:wrap;
-      color:#7b978f;
-    }
-
-    .date-text{
-      font-size:28px;
-    }
-
-    .date-big{
-      font-family:'Cormorant Garamond', serif;
-      font-size:74px;
-      line-height:.9;
-    }
-
-    .bar{
-      color:#c2c1c8;
-      font-size:42px;
-      line-height:1;
-    }
-
-    .time{
-      color:var(--gold-dark);
-      font-size:18px;
-      letter-spacing:.05em;
-      margin-bottom:24px;
-      text-transform:uppercase;
-    }
-
-    .venue{
-      font-family:'Cormorant Garamond', serif;
-      font-size:46px;
-      color:#7b978f;
-      margin:0 0 6px;
-      line-height:1.05;
-    }
-
-    .address{
-      color:var(--gold-dark);
-      font-size:18px;
-      line-height:1.7;
-      margin-bottom:16px;
-    }
-
-    .attire{
-      display:inline-block;
-      margin:10px auto 0;
-      padding:10px 16px;
-      border-radius:999px;
-      background:rgba(196,155,58,.1);
-      color:var(--gold-dark);
-      border:1px solid rgba(196,155,58,.22);
-      font-size:14px;
-    }
-
-    .countdown{
-      max-width:480px;
-      margin:28px auto 0;
-      padding:14px 18px;
-      border-radius:999px;
-      background:rgba(255,255,255,.72);
-      border:1px solid rgba(123,151,143,.14);
-      font-size:14px;
-    }
-
-    .buttons{
-      margin-top:24px;
-      display:flex;
-      justify-content:center;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      display:inline-block;
-      text-decoration:none;
-      padding:12px 20px;
-      border-radius:999px;
-      font-size:14px;
-      transition:transform .18s ease, box-shadow .18s ease;
-    }
-
-    .btn:hover{
-      transform:translateY(-1px);
-      box-shadow:0 8px 18px rgba(0,0,0,.08);
-    }
-
-    .btn-primary{
-      background:linear-gradient(180deg, #d2b7f6, #b88ce8);
-      color:white;
-    }
-
-    .btn-secondary{
-      background:white;
-      color:#7b978f;
-      border:1px solid rgba(123,151,143,.2);
-    }
-
-    .btn-gold{
-      background:linear-gradient(180deg, #e0bf72, #c59533);
-      color:white;
-    }
-
-    .section{
-      margin-top:28px;
-      padding-top:28px;
-      border-top:1px solid rgba(220,214,228,.7);
-    }
-
-    .section-title{
-      font-family:'Cormorant Garamond', serif;
-      color:#7c5eb3;
-      font-size:34px;
-      margin:0 0 10px;
-    }
-
-    .section-text{
-      font-size:16px;
-      line-height:1.8;
-      color:#7b7a82;
-      max-width:560px;
-      margin:0 auto;
-    }
-
-    .calendar-note{
-      margin-top:10px;
-      font-size:13px;
-      color:#9a96a2;
-    }
-
-    @media (max-width:420px){
-      .envelope{
-        width:310px;
-        height:205px;
-      }
-
-      .envelope::before{
-        border-left:155px solid transparent;
-        border-right:155px solid transparent;
-        border-top:112px solid #9560d2;
-      }
-
-      .seal{
-        top:90px;
-        width:60px;
-        height:60px;
-      }
-
-      .inner-card{
-        width:286px;
-        height:184px;
-      }
-
-      .envelope.open .inner-card{
-        height:340px;
-      }
-
-      .mini-title{
-        font-size:30px;
-      }
-
-      .mini-names{
-        font-size:29px;
-      }
-
-      .invite-inner{
-        padding:34px 16px;
-      }
-
-      .name{
-        font-size:48px;
-      }
-
-      .amp{
-        font-size:46px;
-      }
-
-      .date-text{
-        font-size:20px;
-      }
-
-      .date-big{
-        font-size:52px;
-      }
-
-      .bar{
-        font-size:30px;
-      }
-
-      .venue{
-        font-size:32px;
-      }
-
-      .address,
-      .time,
-      .section-text{
-        font-size:15px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arnesh & Swathi | 11.09.27</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --vintage-purple: #3b2a45; 
+            --gold: #d4af37;
+            --gold-gradient: linear-gradient(145deg, #f3d078, #d4af37, #8a6d3b);
+            --paper: #fffcf9;
+        }
+
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+            background: #0f0c29;
+            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+            font-family: 'Playfair Display', serif;
+            overflow: hidden;
+        }
+
+        .stars {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+            z-index: 0; opacity: 0.5;
+        }
+
+        .invitation-wrapper {
+            position: relative; width: 340px; height: 480px;
+            perspective: 1500px; z-index: 10;
+        }
+
+        /* The Card */
+        .card {
+            position: absolute; bottom: 0; left: 10px; width: 320px; height: 220px;
+            background: var(--paper);
+            background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+            padding: 30px 20px; box-sizing: border-box; text-align: center;
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1; box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        /* Envelope Components */
+        .envelope {
+            position: absolute; bottom: 0; width: 100%; height: 260px;
+            background-color: var(--vintage-purple);
+            border-radius: 0 0 8px 8px; z-index: 3;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        .flap {
+            position: absolute; top: 220px; width: 100%; height: 200px;
+            background-color: var(--vintage-purple);
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            z-index: 5; transform-origin: top;
+            transition: transform 0.8s ease;
+        }
+
+        .wax-seal {
+            position: absolute; top: 150px; left: 50%;
+            transform: translateX(-50%); width: 75px; height: 75px;
+            background: var(--gold-gradient); border-radius: 50%;
+            z-index: 6; cursor: pointer;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .wax-seal::after {
+            content: "A & S"; font-family: 'Dancing Script';
+            color: #5c4b24; font-size: 22px; font-weight: bold;
+        }
+
+        /* Open State */
+        .open .flap { transform: rotateX(180deg); z-index: 0; }
+        .open .wax-seal { opacity: 0; pointer-events: none; }
+        .open .card { height: 680px; transform: translateY(-380px); z-index: 10; }
+        .open .content { opacity: 1; transition: opacity 0.8s 0.8s; }
+
+        .content { opacity: 0; }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: var(--vintage-purple); margin: 5px 0; }
+        
+        /* Countdown Timer */
+        #timer {
+            display: flex; justify-content: space-around;
+            margin: 10px 0; font-size: 0.7rem; color: var(--vintage-purple);
+            font-weight: bold; border-top: 1px solid #eee; padding-top: 10px;
+        }
+        .timer-unit { display: flex; flex-direction: column; }
+        .timer-unit span { font-size: 1.1rem; color: var(--gold); }
+
+        .details { font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; margin: 10px 0; border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold); padding: 8px 0; }
+        
+        /* Buttons */
+        .btn-container { display: flex; flex-direction: column; gap: 8px; margin-top: 15px; align-items: center; }
+        .btn {
+            display: inline-block; width: 85%; padding: 8px;
+            text-decoration: none; border-radius: 20px; font-size: 0.7rem; font-weight: bold;
+            transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn-rsvp { background: var(--vintage-purple); color: white; }
+        .btn-sec { background: transparent; color: var(--vintage-purple); border: 1px solid var(--gold); }
+    </style>
 </head>
 <body>
-  <div class="bg-glow"></div>
 
-  <div class="petals">
-    <span class="petal" style="left:5%;animation-duration:11s;animation-delay:0s;"></span>
-    <span class="petal" style="left:16%;animation-duration:13s;animation-delay:1s;"></span>
-    <span class="petal" style="left:28%;animation-duration:12s;animation-delay:4s;"></span>
-    <span class="petal" style="left:42%;animation-duration:15s;animation-delay:2s;"></span>
-    <span class="petal" style="left:58%;animation-duration:10s;animation-delay:3s;"></span>
-    <span class="petal" style="left:71%;animation-duration:14s;animation-delay:1.5s;"></span>
-    <span class="petal" style="left:84%;animation-duration:11s;animation-delay:5s;"></span>
-    <span class="petal" style="left:94%;animation-duration:12s;animation-delay:.5s;"></span>
-  </div>
+    <div class="stars"></div>
 
-  <div class="butterflies">
-    <span class="butterfly" style="left:9%;animation-duration:18s;animation-delay:0s;"></span>
-    <span class="butterfly" style="left:27%;animation-duration:21s;animation-delay:3s;"></span>
-    <span class="butterfly" style="left:55%;animation-duration:20s;animation-delay:1.5s;"></span>
-    <span class="butterfly" style="left:79%;animation-duration:22s;animation-delay:5s;"></span>
-  </div>
+    <div class="invitation-wrapper" id="inviteBox">
+        <div class="card">
+            <div class="content">
+                <p style="font-size: 0.6rem; letter-spacing: 3px; margin: 0;">SAVE THE DATE</p>
+                <h1>Arnesh & Swathi</h1>
+                
+                <div id="timer">
+                    <div class="timer-unit"><span id="days">00</span>days</div>
+                    <div class="timer-unit"><span id="hours">00</span>hrs</div>
+                    <div class="timer-unit"><span id="mins">00</span>mins</div>
+                    <div class="timer-unit"><span id="secs">00</span>secs</div>
+                </div>
 
-  <div class="sparkles">
-    <span class="sparkle" style="top:12%;left:18%;animation-duration:2.3s;"></span>
-    <span class="sparkle" style="top:22%;left:78%;animation-duration:1.8s;"></span>
-    <span class="sparkle" style="top:44%;left:88%;animation-duration:2.1s;"></span>
-    <span class="sparkle" style="top:68%;left:82%;animation-duration:2.5s;"></span>
-    <span class="sparkle" style="top:80%;left:28%;animation-duration:2.2s;"></span>
-  </div>
+                <div class="details">
+                    Saturday, 11 September 2027<br>
+                    At Six O'Clock in the Evening
+                </div>
 
-  <button class="music-btn" onclick="toggleMusic()">🎵 Music</button>
+                <p style="font-size: 0.85rem; margin: 0;"><strong>Swiss-Belhotel Harbour Bay</strong></p>
+                <p style="font-size: 0.75rem; color: #666; margin: 2px 0;">Batam, Indonesia</p>
 
-  <section class="hero">
-    <div class="envelope" onclick="openInvitation()">
-      <div class="seal"></div>
-
-      <div class="inner-card">
-        <div class="mini-title">Save the Date</div>
-        <div class="mini-sub">Together with their families</div>
-        <div class="mini-names">Arnesh &amp; Swathi</div>
-
-        <div class="mini-reveal">
-          request the honour of your presence
-          <div class="mini-line"></div>
-          <strong>September 11, 2026</strong><br>
-          Swissbel Hotel Harbour Bay Batam<br>
-          6:00 PM
+                <div class="btn-container">
+                    <a href="https://swathiganesh-droid.github.io/wedding-invite/" class="btn btn-rsvp">Confirm RSVP</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Swiss-Belhotel+Harbour+Bay+Batam" target="_blank" class="btn btn-sec">📍 View Location</a>
+                    <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Wedding+of+Arnesh+and+Swathi&dates=20270911T110000Z/20270911T160000Z&details=We+can%27t+wait+to+celebrate+with+you!&location=Swiss-Belhotel+Harbour+Bay+Batam&sf=true&output=xml" target="_blank" class="btn btn-sec">📅 Save to Calendar</a>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <div class="flap"></div>
+        <div class="wax-seal" onclick="openInvite()"></div>
+        <div class="envelope"></div>
     </div>
 
-    <div class="hint">Tap the envelope to open</div>
-  </section>
+    <script>
+        function openInvite() {
+            document.getElementById('inviteBox').classList.add('open');
+        }
 
-  <main class="full-invite" id="fullInvite">
-    <section class="invite-card">
-      <div class="invite-inner">
-        <div class="eyebrow">You are invited to the wedding of</div>
+        // Countdown Logic
+        const targetDate = new Date("September 11, 2027 18:00:00").getTime();
 
-        <h1 class="name">Arnesh</h1>
-        <div class="amp">&amp;</div>
-        <h1 class="name">Swathi</h1>
+        const updateTimer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
 
-        <div class="date-row">
-          <div class="date-text">Friday</div>
-          <div class="bar">|</div>
-          <div class="date-big">11</div>
-          <div class="bar">|</div>
-          <div class="date-text">2026</div>
-        </div>
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        <div class="time">Six O’Clock in the Evening</div>
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+            document.getElementById("mins").innerHTML = minutes;
+            document.getElementById("secs").innerHTML = seconds;
 
-        <div class="venue">Swissbel Hotel Harbour Bay</div>
-        <div class="address">Batam · 6:00 PM</div>
-
-        <div class="attire">Dress Code: Black Tie Formal</div>
-
-        <div class="countdown" id="countdown">Counting down...</div>
-
-        <div class="buttons">
-          <a class="btn btn-primary" href="#" target="_blank" rel="noopener noreferrer">RSVP</a>
-          <a class="btn btn-secondary" href="https://maps.google.com/?q=Swissbel+Hotel+Harbour+Bay+Batam" target="_blank" rel="noopener noreferrer">View Location</a>
-          <a class="btn btn-gold" id="calendarBtn" href="#">Add to Calendar</a>
-        </div>
-
-        <div class="section">
-          <div class="section-title">Attire</div>
-          <div class="section-text">
-            Black tie formal. An elegant evening of celebration in classic attire.
-          </div>
-        </div>
-
-        <div class="section">
-          <div class="section-title">With Love</div>
-          <div class="section-text">
-            We are so excited to celebrate this special day with our family and friends.
-          </div>
-          <div class="calendar-note">
-            Add the event to your calendar so you don’t miss our big day.
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <audio id="bgMusic" loop>
-    <source src="music.mp3" type="audio/mpeg" />
-  </audio>
-
-  <script>
-    let opened = false;
-    let musicPlaying = false;
-
-    function openInvitation(){
-      if(opened) return;
-
-      const envelope = document.querySelector('.envelope');
-      envelope.classList.add('open');
-      opened = true;
-
-      setTimeout(() => {
-        document.getElementById('fullInvite').scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }, 900);
-
-      const music = document.getElementById('bgMusic');
-      if (music && !musicPlaying) {
-        music.play().then(() => {
-          musicPlaying = true;
-        }).catch(() => {});
-      }
-    }
-
-    function toggleMusic(){
-      const music = document.getElementById('bgMusic');
-      if(music.paused){
-        music.play();
-        musicPlaying = true;
-      } else {
-        music.pause();
-        musicPlaying = false;
-      }
-    }
-
-    function updateCountdown(){
-      const weddingDate = new Date("2026-09-11T18:00:00");
-      const now = new Date();
-      const diff = weddingDate - now;
-      const el = document.getElementById("countdown");
-
-      if(diff <= 0){
-        el.innerHTML = "Today is the day 💍";
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-
-      el.innerHTML = "<strong>" + days + "</strong> days, <strong>" + hours + "</strong> hours, <strong>" + minutes + "</strong> minutes until our wedding";
-    }
-
-    function generateCalendarLink() {
-      const start = "20260911T180000";
-      const end = "20260911T230000";
-      const title = encodeURIComponent("Wedding of Arnesh & Swathi");
-      const details = encodeURIComponent("Wedding celebration of Arnesh & Swathi");
-      const location = encodeURIComponent("Swissbel Hotel Harbour Bay Batam");
-
-      return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${location}`;
-    }
-
-    document.getElementById("calendarBtn").href = generateCalendarLink();
-
-    updateCountdown();
-    setInterval(updateCountdown, 60000);
-  </script>
+            if (distance < 0) {
+                clearInterval(updateTimer);
+                document.getElementById("timer").innerHTML = "ITS CELEBRATION TIME!";
+            }
+        }, 1000);
+    </script>
 </body>
 </html>

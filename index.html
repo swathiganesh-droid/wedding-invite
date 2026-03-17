@@ -4,35 +4,36 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Arnesh & Swathi</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --seal:#c7a6ff;
-      --seal-dark:#a97ff0;
-      --lilac:#eee3ff;
-      --lilac-2:#e4d2ff;
+      --purple:#8e57c8;
+      --purple-dark:#6f3faa;
+      --purple-light:#b785eb;
       --paper:#fffaf6;
-      --envelope:#f5efe8;
-      --text:#5f4b66;
-      --gold:#d8b65c;
-      --shadow:0 14px 40px rgba(84, 58, 102, 0.16);
+      --paper-2:#fffdfb;
+      --text:#6a5a73;
+      --sage:#7f9a92;
+      --gold:#c49b3a;
+      --gold-dark:#a57d22;
+      --shadow:0 18px 45px rgba(66, 35, 96, 0.18);
     }
 
     *{box-sizing:border-box}
 
+    html{
+      scroll-behavior:smooth;
+    }
+
     body{
       margin:0;
       min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
       background:
-        radial-gradient(circle at top, #f7f1ff 0%, #eee5fb 40%, #eadff7 100%);
+        radial-gradient(circle at top, #f3ecfb 0%, #eee7f8 40%, #f8f6fb 100%);
       font-family:'Playfair Display', serif;
-      overflow:hidden;
       color:var(--text);
-      padding:20px;
+      overflow-x:hidden;
     }
 
     .bg-glow{
@@ -40,13 +41,15 @@
       inset:0;
       pointer-events:none;
       background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,.55), transparent 30%),
-        radial-gradient(circle at 80% 15%, rgba(255,255,255,.35), transparent 22%),
-        radial-gradient(circle at 50% 85%, rgba(255,255,255,.28), transparent 26%);
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.5), transparent 28%),
+        radial-gradient(circle at 80% 15%, rgba(255,255,255,.35), transparent 20%),
+        radial-gradient(circle at 50% 85%, rgba(255,255,255,.22), transparent 24%);
       z-index:0;
     }
 
-    .petals, .sparkles{
+    .petals,
+    .sparkles,
+    .butterflies{
       position:fixed;
       inset:0;
       pointer-events:none;
@@ -57,32 +60,17 @@
     .petal{
       position:absolute;
       top:-40px;
-      width:16px;
-      height:24px;
-      background:linear-gradient(180deg, #f5ecff, #dcbfff);
+      width:15px;
+      height:22px;
+      background:linear-gradient(180deg, #f1e5ff, #d9bbff);
       border-radius:70% 30% 70% 30%;
-      opacity:.9;
-      box-shadow:inset -2px -2px 4px rgba(255,255,255,.4);
+      opacity:.75;
       animation:fall linear infinite;
     }
 
-    .petal:nth-child(2n){
-      background:linear-gradient(180deg, #efe4ff, #cfa8ff);
-    }
-
-    .petal:nth-child(3n){
-      background:linear-gradient(180deg, #faf4ff, #e2c8ff);
-    }
-
     @keyframes fall{
-      0%{
-        transform:translateY(-50px) translateX(0) rotate(0deg);
-        opacity:.95;
-      }
-      100%{
-        transform:translateY(110vh) translateX(90px) rotate(360deg);
-        opacity:.18;
-      }
+      0%{transform:translateY(-50px) translateX(0) rotate(0deg); opacity:.9;}
+      100%{transform:translateY(110vh) translateX(80px) rotate(360deg); opacity:.15;}
     }
 
     .sparkle{
@@ -90,41 +78,93 @@
       width:6px;
       height:6px;
       border-radius:50%;
-      background:rgba(216,182,92,.95);
-      box-shadow:0 0 12px rgba(216,182,92,.9);
+      background:rgba(196,155,58,.9);
+      box-shadow:0 0 12px rgba(196,155,58,.95);
       animation:twinkle ease-in-out infinite;
     }
 
     @keyframes twinkle{
-      0%,100%{transform:scale(.5); opacity:.25;}
-      50%{transform:scale(1.4); opacity:1;}
+      0%,100%{transform:scale(.5); opacity:.2;}
+      50%{transform:scale(1.35); opacity:1;}
     }
 
-    .wrap{
+    .butterfly{
+      position:absolute;
+      width:20px;
+      height:20px;
+      opacity:.32;
+      animation:floatButterfly linear infinite;
+    }
+
+    .butterfly::before,
+    .butterfly::after{
+      content:"";
+      position:absolute;
+      width:11px;
+      height:16px;
+      top:2px;
+      background:linear-gradient(180deg, #e2d3fa, #c2d9d2);
+      border-radius:11px 11px 4px 11px;
+    }
+
+    .butterfly::before{
+      left:0;
+      transform:rotate(-25deg);
+    }
+
+    .butterfly::after{
+      right:0;
+      transform:scaleX(-1) rotate(-25deg);
+    }
+
+    @keyframes floatButterfly{
+      0%{transform:translateY(105vh) translateX(0); opacity:0;}
+      15%{opacity:.32;}
+      100%{transform:translateY(-20vh) translateX(70px); opacity:0;}
+    }
+
+    .music-btn{
+      position:fixed;
+      top:16px;
+      right:16px;
+      z-index:10;
+      border:none;
+      border-radius:999px;
+      padding:10px 14px;
+      background:rgba(255,255,255,.92);
+      color:var(--gold-dark);
+      font-size:14px;
+      box-shadow:0 8px 18px rgba(0,0,0,.08);
+      cursor:pointer;
+    }
+
+    .hero{
       position:relative;
       z-index:2;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      padding:28px 16px 44px;
       text-align:center;
-    }
-
-    .hint{
-      margin-top:18px;
-      font-size:13px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:#7f6992;
     }
 
     .envelope{
       position:relative;
-      width:340px;
-      height:220px;
-      background:linear-gradient(180deg, #f7f1eb, var(--envelope));
-      box-shadow:var(--shadow);
-      cursor:pointer;
-      transition:transform .7s ease;
+      width:360px;
+      height:230px;
+      max-width:92vw;
+      background:
+        linear-gradient(145deg, #9c68d7 0%, #8b54ca 45%, #7d45bc 100%);
       border-radius:4px;
+      box-shadow:
+        0 22px 40px rgba(70, 32, 107, .28),
+        inset 0 1px 0 rgba(255,255,255,.2),
+        inset 0 -10px 18px rgba(0,0,0,.08);
+      cursor:pointer;
+      transition:transform .8s ease;
       overflow:visible;
-      margin:0 auto;
     }
 
     .envelope::before{
@@ -132,13 +172,13 @@
       position:absolute;
       top:0;
       left:0;
-      z-index:3;
-      border-left:170px solid transparent;
-      border-right:170px solid transparent;
-      border-top:120px solid var(--envelope);
+      z-index:4;
+      border-left:180px solid transparent;
+      border-right:180px solid transparent;
+      border-top:125px solid #9560d2;
+      filter:brightness(1.03);
       transform-origin:top;
-      transition:transform .6s .2s ease;
-      filter:drop-shadow(0 3px 2px rgba(0,0,0,.04));
+      transition:transform .65s .2s ease;
     }
 
     .envelope::after{
@@ -146,150 +186,106 @@
       position:absolute;
       inset:0;
       background:
-        linear-gradient(135deg, transparent 49.7%, rgba(120,100,140,.06) 50%, transparent 50.3%),
-        linear-gradient(225deg, transparent 49.7%, rgba(120,100,140,.06) 50%, transparent 50.3%);
+        linear-gradient(135deg, transparent 49.7%, rgba(255,255,255,.12) 50%, transparent 50.3%),
+        linear-gradient(225deg, transparent 49.7%, rgba(0,0,0,.08) 50%, transparent 50.3%);
+      border-radius:4px;
       pointer-events:none;
-      z-index:1;
     }
 
     .seal{
       position:absolute;
       left:50%;
-      top:98px;
+      top:101px;
       transform:translateX(-50%);
-      width:62px;
-      height:62px;
+      width:66px;
+      height:66px;
       border-radius:50%;
-      background:radial-gradient(circle at 30% 30%, #dcc6ff, var(--seal-dark));
+      background:
+        radial-gradient(circle at 30% 30%, #ddb46b, #8f5a1f 72%);
       box-shadow:
-        0 5px 12px rgba(0,0,0,.22),
-        inset 0 2px 4px rgba(255,255,255,.35);
-      z-index:4;
+        0 6px 16px rgba(0,0,0,.24),
+        inset 0 2px 4px rgba(255,255,255,.28),
+        inset 0 -2px 5px rgba(0,0,0,.18);
+      z-index:5;
       display:flex;
       align-items:center;
       justify-content:center;
       transition:opacity .3s ease, transform .3s ease;
     }
 
-    .seal::after{
-      content:"A&S";
-      font-family:'Dancing Script', cursive;
-      font-size:28px;
-      color:#fff7ff;
-      text-shadow:0 1px 1px rgba(0,0,0,.15);
+    .seal::before{
+      content:"";
+      position:absolute;
+      inset:7px;
+      border-radius:50%;
+      border:1.5px solid rgba(80,40,10,.45);
     }
 
-    .card{
+    .seal::after{
+      content:"A&S";
+      font-family:'Great Vibes', cursive;
+      font-size:28px;
+      color:#fff3dd;
+      text-shadow:0 1px 1px rgba(70,30,0,.25);
+      position:relative;
+      z-index:2;
+    }
+
+    .inner-card{
       position:absolute;
       left:12px;
       bottom:0;
-      width:316px;
-      height:195px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,250,246,.98)),
-        var(--paper);
-      box-shadow:0 2px 12px rgba(0,0,0,.06);
+      width:336px;
+      max-width:calc(92vw - 24px);
+      height:200px;
+      background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,250,245,.99));
+      box-shadow:0 3px 12px rgba(0,0,0,.08);
       z-index:2;
-      padding:22px 22px 18px;
+      padding:22px 18px 18px;
       display:flex;
       flex-direction:column;
       justify-content:center;
       align-items:center;
       text-align:center;
-      transition:transform .8s .55s ease, height .8s .55s ease;
       overflow:hidden;
+      transition:transform .85s .55s ease, height .85s .55s ease;
     }
 
-    .top-ornament{
-      width:70px;
-      height:2px;
-      background:linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin-bottom:10px;
-    }
-
-    h1{
-      margin:0;
-      font-family:'Dancing Script', cursive;
-      font-size:34px;
+    .mini-title{
+      font-family:'Great Vibes', cursive;
+      color:var(--gold-dark);
+      font-size:36px;
       line-height:1;
-      color:#9b77d8;
+      margin:0;
     }
 
-    .sub{
-      margin:10px 0 6px;
+    .mini-sub{
+      margin-top:10px;
       font-size:14px;
+      color:#7d8d87;
     }
 
-    .names{
-      font-size:25px;
-      font-weight:600;
-      color:#7f5fba;
-      margin:4px 0;
+    .mini-names{
+      margin-top:6px;
+      font-family:'Cormorant Garamond', serif;
+      font-size:34px;
+      color:#7c5eb3;
     }
 
-    .reveal{
+    .mini-reveal{
       opacity:0;
       transition:opacity .7s 1.05s ease;
-      margin-top:6px;
+      margin-top:10px;
+      font-size:13px;
+      line-height:1.65;
       width:100%;
     }
 
-    .line{
-      width:64px;
+    .mini-line{
+      width:60px;
       height:1px;
       background:linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin:10px auto 12px;
-    }
-
-    .details{
-      font-size:15px;
-      line-height:1.7;
-    }
-
-    .countdown{
-      margin:14px auto 0;
-      width:100%;
-      max-width:250px;
-      border:1px solid rgba(169,127,240,.18);
-      border-radius:14px;
-      padding:10px 12px;
-      background:rgba(255,255,255,.55);
-      font-size:13px;
-      line-height:1.5;
-    }
-
-    .buttons{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      align-items:center;
-      margin-top:14px;
-    }
-
-    .btn{
-      display:inline-block;
-      min-width:180px;
-      text-decoration:none;
-      padding:11px 18px;
-      border-radius:999px;
-      font-size:14px;
-      transition:transform .18s ease, box-shadow .18s ease;
-    }
-
-    .btn:hover{
-      transform:translateY(-1px);
-      box-shadow:0 8px 18px rgba(0,0,0,.08);
-    }
-
-    .btn-primary{
-      background:linear-gradient(180deg, #cbaaff, #b78ef8);
-      color:white;
-    }
-
-    .btn-secondary{
-      background:rgba(255,255,255,.7);
-      color:#8964c8;
-      border:1px solid rgba(169,127,240,.35);
+      margin:10px auto;
     }
 
     .envelope.open::before{
@@ -303,17 +299,219 @@
       transform:translateX(-50%) scale(.88);
     }
 
-    .envelope.open .card{
+    .envelope.open .inner-card{
       transform:translateY(-138px);
-      height:430px;
+      height:330px;
     }
 
     .envelope.open{
-      transform:translateY(62px);
+      transform:translateY(58px);
     }
 
-    .envelope.open .reveal{
+    .envelope.open .mini-reveal{
       opacity:1;
+    }
+
+    .hint{
+      margin-top:20px;
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:#8a759f;
+    }
+
+    .full-invite{
+      position:relative;
+      z-index:2;
+      max-width:760px;
+      margin:0 auto;
+      padding:10px 16px 60px;
+    }
+
+    .invite-card{
+      background:rgba(255,253,249,.95);
+      border:1px solid rgba(220,214,228,.9);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .invite-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 15% 12%, rgba(232,223,248,.3), transparent 18%),
+        radial-gradient(circle at 85% 16%, rgba(229,241,237,.24), transparent 16%),
+        radial-gradient(circle at 10% 88%, rgba(232,223,248,.2), transparent 15%),
+        radial-gradient(circle at 88% 86%, rgba(229,241,237,.18), transparent 14%);
+    }
+
+    .invite-inner{
+      position:relative;
+      padding:42px 24px;
+      text-align:center;
+    }
+
+    .eyebrow{
+      color:var(--gold-dark);
+      font-size:15px;
+      letter-spacing:.04em;
+      margin-bottom:18px;
+    }
+
+    .name{
+      margin:0;
+      font-family:'Cormorant Garamond', serif;
+      font-size:76px;
+      line-height:.95;
+      font-weight:500;
+      color:#7b978f;
+    }
+
+    .amp{
+      font-family:'Great Vibes', cursive;
+      font-size:58px;
+      line-height:1;
+      color:var(--gold-dark);
+      margin:6px 0;
+    }
+
+    .date-row{
+      margin:32px 0 18px;
+      display:flex;
+      justify-content:center;
+      align-items:flex-end;
+      gap:16px;
+      flex-wrap:wrap;
+      color:#7b978f;
+    }
+
+    .date-text{
+      font-size:28px;
+    }
+
+    .date-big{
+      font-family:'Cormorant Garamond', serif;
+      font-size:74px;
+      line-height:.9;
+    }
+
+    .bar{
+      color:#c2c1c8;
+      font-size:42px;
+      line-height:1;
+    }
+
+    .time{
+      color:var(--gold-dark);
+      font-size:18px;
+      letter-spacing:.05em;
+      margin-bottom:24px;
+      text-transform:uppercase;
+    }
+
+    .venue{
+      font-family:'Cormorant Garamond', serif;
+      font-size:46px;
+      color:#7b978f;
+      margin:0 0 6px;
+      line-height:1.05;
+    }
+
+    .address{
+      color:var(--gold-dark);
+      font-size:18px;
+      line-height:1.7;
+      margin-bottom:16px;
+    }
+
+    .attire{
+      display:inline-block;
+      margin:10px auto 0;
+      padding:10px 16px;
+      border-radius:999px;
+      background:rgba(196,155,58,.1);
+      color:var(--gold-dark);
+      border:1px solid rgba(196,155,58,.22);
+      font-size:14px;
+    }
+
+    .countdown{
+      max-width:480px;
+      margin:28px auto 0;
+      padding:14px 18px;
+      border-radius:999px;
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(123,151,143,.14);
+      font-size:14px;
+    }
+
+    .buttons{
+      margin-top:24px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-block;
+      text-decoration:none;
+      padding:12px 20px;
+      border-radius:999px;
+      font-size:14px;
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 8px 18px rgba(0,0,0,.08);
+    }
+
+    .btn-primary{
+      background:linear-gradient(180deg, #d2b7f6, #b88ce8);
+      color:white;
+    }
+
+    .btn-secondary{
+      background:white;
+      color:#7b978f;
+      border:1px solid rgba(123,151,143,.2);
+    }
+
+    .btn-gold{
+      background:linear-gradient(180deg, #e0bf72, #c59533);
+      color:white;
+    }
+
+    .section{
+      margin-top:28px;
+      padding-top:28px;
+      border-top:1px solid rgba(220,214,228,.7);
+    }
+
+    .section-title{
+      font-family:'Cormorant Garamond', serif;
+      color:#7c5eb3;
+      font-size:34px;
+      margin:0 0 10px;
+    }
+
+    .section-text{
+      font-size:16px;
+      line-height:1.8;
+      color:#7b7a82;
+      max-width:560px;
+      margin:0 auto;
+    }
+
+    .calendar-note{
+      margin-top:10px;
+      font-size:13px;
+      color:#9a96a2;
     }
 
     @media (max-width:420px){
@@ -325,20 +523,65 @@
       .envelope::before{
         border-left:155px solid transparent;
         border-right:155px solid transparent;
-        border-top:112px solid var(--envelope);
+        border-top:112px solid #9560d2;
       }
 
-      .card{
+      .seal{
+        top:90px;
+        width:60px;
+        height:60px;
+      }
+
+      .inner-card{
         width:286px;
         height:184px;
       }
 
-      .envelope.open .card{
-        height:446px;
+      .envelope.open .inner-card{
+        height:340px;
       }
 
-      h1{font-size:31px}
-      .names{font-size:23px}
+      .mini-title{
+        font-size:30px;
+      }
+
+      .mini-names{
+        font-size:29px;
+      }
+
+      .invite-inner{
+        padding:34px 16px;
+      }
+
+      .name{
+        font-size:48px;
+      }
+
+      .amp{
+        font-size:46px;
+      }
+
+      .date-text{
+        font-size:20px;
+      }
+
+      .date-big{
+        font-size:52px;
+      }
+
+      .bar{
+        font-size:30px;
+      }
+
+      .venue{
+        font-size:32px;
+      }
+
+      .address,
+      .time,
+      .section-text{
+        font-size:15px;
+      }
     }
   </style>
 </head>
@@ -346,68 +589,146 @@
   <div class="bg-glow"></div>
 
   <div class="petals">
-    <span class="petal" style="left:4%;animation-duration:11s;animation-delay:0s;"></span>
-    <span class="petal" style="left:14%;animation-duration:13s;animation-delay:1s;"></span>
-    <span class="petal" style="left:25%;animation-duration:12s;animation-delay:4s;"></span>
-    <span class="petal" style="left:37%;animation-duration:15s;animation-delay:2s;"></span>
-    <span class="petal" style="left:49%;animation-duration:10s;animation-delay:3s;"></span>
-    <span class="petal" style="left:61%;animation-duration:14s;animation-delay:1.5s;"></span>
-    <span class="petal" style="left:73%;animation-duration:11s;animation-delay:5s;"></span>
-    <span class="petal" style="left:84%;animation-duration:16s;animation-delay:2.5s;"></span>
+    <span class="petal" style="left:5%;animation-duration:11s;animation-delay:0s;"></span>
+    <span class="petal" style="left:16%;animation-duration:13s;animation-delay:1s;"></span>
+    <span class="petal" style="left:28%;animation-duration:12s;animation-delay:4s;"></span>
+    <span class="petal" style="left:42%;animation-duration:15s;animation-delay:2s;"></span>
+    <span class="petal" style="left:58%;animation-duration:10s;animation-delay:3s;"></span>
+    <span class="petal" style="left:71%;animation-duration:14s;animation-delay:1.5s;"></span>
+    <span class="petal" style="left:84%;animation-duration:11s;animation-delay:5s;"></span>
     <span class="petal" style="left:94%;animation-duration:12s;animation-delay:.5s;"></span>
+  </div>
+
+  <div class="butterflies">
+    <span class="butterfly" style="left:9%;animation-duration:18s;animation-delay:0s;"></span>
+    <span class="butterfly" style="left:27%;animation-duration:21s;animation-delay:3s;"></span>
+    <span class="butterfly" style="left:55%;animation-duration:20s;animation-delay:1.5s;"></span>
+    <span class="butterfly" style="left:79%;animation-duration:22s;animation-delay:5s;"></span>
   </div>
 
   <div class="sparkles">
     <span class="sparkle" style="top:12%;left:18%;animation-duration:2.3s;"></span>
     <span class="sparkle" style="top:22%;left:78%;animation-duration:1.8s;"></span>
-    <span class="sparkle" style="top:34%;left:8%;animation-duration:2.7s;"></span>
     <span class="sparkle" style="top:44%;left:88%;animation-duration:2.1s;"></span>
-    <span class="sparkle" style="top:58%;left:14%;animation-duration:1.9s;"></span>
     <span class="sparkle" style="top:68%;left:82%;animation-duration:2.5s;"></span>
     <span class="sparkle" style="top:80%;left:28%;animation-duration:2.2s;"></span>
-    <span class="sparkle" style="top:14%;left:56%;animation-duration:2.8s;"></span>
   </div>
 
-  <div class="wrap">
+  <button class="music-btn" onclick="toggleMusic()">🎵 Music</button>
+
+  <section class="hero">
     <div class="envelope" onclick="openInvitation()">
       <div class="seal"></div>
 
-      <div class="card">
-        <div class="top-ornament"></div>
-        <h1>Save the Date</h1>
-        <div class="sub">Together with their families</div>
-        <div class="names">Arnesh &amp; Swathi</div>
+      <div class="inner-card">
+        <div class="mini-title">Save the Date</div>
+        <div class="mini-sub">Together with their families</div>
+        <div class="mini-names">Arnesh &amp; Swathi</div>
 
-        <div class="reveal">
-          <div>request the honour of your presence</div>
-          <div class="line"></div>
-
-          <div class="details">
-            <strong>September 11, 2026</strong><br>
-            Swissbel Hotel Harbour Bay Batam<br>
-            6:00 PM
-          </div>
-
-          <div class="countdown" id="countdown">Counting down...</div>
-
-          <div class="buttons">
-            <a class="btn btn-primary" href="#" target="_blank" rel="noopener noreferrer">RSVP</a>
-            <a class="btn btn-secondary" href="https://maps.google.com/?q=Swissbel+Hotel+Harbour+Bay+Batam" target="_blank" rel="noopener noreferrer">View Location</a>
-          </div>
+        <div class="mini-reveal">
+          request the honour of your presence
+          <div class="mini-line"></div>
+          <strong>September 11, 2026</strong><br>
+          Swissbel Hotel Harbour Bay Batam<br>
+          6:00 PM
         </div>
       </div>
     </div>
 
     <div class="hint">Tap the envelope to open</div>
-  </div>
+  </section>
+
+  <main class="full-invite" id="fullInvite">
+    <section class="invite-card">
+      <div class="invite-inner">
+        <div class="eyebrow">You are invited to the wedding of</div>
+
+        <h1 class="name">Arnesh</h1>
+        <div class="amp">&amp;</div>
+        <h1 class="name">Swathi</h1>
+
+        <div class="date-row">
+          <div class="date-text">Friday</div>
+          <div class="bar">|</div>
+          <div class="date-big">11</div>
+          <div class="bar">|</div>
+          <div class="date-text">2026</div>
+        </div>
+
+        <div class="time">Six O’Clock in the Evening</div>
+
+        <div class="venue">Swissbel Hotel Harbour Bay</div>
+        <div class="address">Batam · 6:00 PM</div>
+
+        <div class="attire">Dress Code: Black Tie Formal</div>
+
+        <div class="countdown" id="countdown">Counting down...</div>
+
+        <div class="buttons">
+          <a class="btn btn-primary" href="#" target="_blank" rel="noopener noreferrer">RSVP</a>
+          <a class="btn btn-secondary" href="https://maps.google.com/?q=Swissbel+Hotel+Harbour+Bay+Batam" target="_blank" rel="noopener noreferrer">View Location</a>
+          <a class="btn btn-gold" id="calendarBtn" href="#">Add to Calendar</a>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Attire</div>
+          <div class="section-text">
+            Black tie formal. An elegant evening of celebration in classic attire.
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">With Love</div>
+          <div class="section-text">
+            We are so excited to celebrate this special day with our family and friends.
+          </div>
+          <div class="calendar-note">
+            Add the event to your calendar so you don’t miss our big day.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg" />
+  </audio>
 
   <script>
     let opened = false;
+    let musicPlaying = false;
 
     function openInvitation(){
       if(opened) return;
-      document.querySelector('.envelope').classList.add('open');
+
+      const envelope = document.querySelector('.envelope');
+      envelope.classList.add('open');
       opened = true;
+
+      setTimeout(() => {
+        document.getElementById('fullInvite').scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }, 900);
+
+      const music = document.getElementById('bgMusic');
+      if (music && !musicPlaying) {
+        music.play().then(() => {
+          musicPlaying = true;
+        }).catch(() => {});
+      }
+    }
+
+    function toggleMusic(){
+      const music = document.getElementById('bgMusic');
+      if(music.paused){
+        music.play();
+        musicPlaying = true;
+      } else {
+        music.pause();
+        musicPlaying = false;
+      }
     }
 
     function updateCountdown(){
@@ -427,6 +748,18 @@
 
       el.innerHTML = "<strong>" + days + "</strong> days, <strong>" + hours + "</strong> hours, <strong>" + minutes + "</strong> minutes until our wedding";
     }
+
+    function generateCalendarLink() {
+      const start = "20260911T180000";
+      const end = "20260911T230000";
+      const title = encodeURIComponent("Wedding of Arnesh & Swathi");
+      const details = encodeURIComponent("Wedding celebration of Arnesh & Swathi");
+      const location = encodeURIComponent("Swissbel Hotel Harbour Bay Batam");
+
+      return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${location}`;
+    }
+
+    document.getElementById("calendarBtn").href = generateCalendarLink();
 
     updateCountdown();
     setInterval(updateCountdown, 60000);

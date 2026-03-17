@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You're Invited</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8d6e63; /* Wax seal color */
+            --paper: #fdfaf6;
+            --envelope: #f3ece4;
+            --accent: #d4af37;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e5ddd5;
+            font-family: 'Playfair Display', serif;
+            overflow: hidden;
+        }
+
+        /* Envelope Container */
+        .envelope-wrapper {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background-color: var(--envelope);
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.6s ease;
+        }
+
+        /* The Flap */
+        .envelope-wrapper::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            z-index: 2;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 110px solid var(--envelope);
+            transform-origin: top;
+            transition: transform 0.5s 0.3s ease;
+        }
+
+        /* Wax Seal */
+        .wax-seal {
+            position: absolute;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            z-index: 3;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--accent);
+            font-size: 20px;
+            transition: opacity 0.3s ease;
+        }
+
+        .wax-seal::after {
+            content: "S&J"; /* Initials */
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* The Card Inside */
+        .card {
+            position: absolute;
+            bottom: 0;
+            left: 10px;
+            width: 280px;
+            height: 180px;
+            background: var(--paper);
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            transition: transform 0.6s 0.6s ease;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 24px;
+            margin: 0;
+            color: var(--primary);
+        }
+
+        .card p {
+            font-size: 14px;
+            margin: 10px 0;
+            line-height: 1.4;
+        }
+
+        /* Open State Animations */
+        .envelope-wrapper.open::before {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+
+        .envelope-wrapper.open .wax-seal {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .envelope-wrapper.open .card {
+            transform: translateY(-120px);
+            height: 350px; /* Expands on reveal */
+        }
+
+        .envelope-wrapper.open {
+            transform: translateY(50px);
+        }
+
+        /* Decorative "reveal" content hidden initially */
+        .reveal-content {
+            opacity: 0;
+            transition: opacity 0.5s 1s;
+        }
+
+        .open .reveal-content {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="envelope-wrapper" onclick="openInvitation()">
+        <div class="wax-seal"></div>
+        <div class="card">
+            <h1>Save the Date</h1>
+            <p>Together with their families</p>
+            <p><strong>Sarah & James</strong></p>
+            <div class="reveal-content">
+                <p>Request the honor of your presence</p>
+                <hr style="width: 50px; border: 0.5px solid var(--accent);">
+                <p>October 24th, 2026<br>The Botanical Gardens</p>
+                <p style="font-size: 12px; font-style: italic;">Dinner and dancing to follow</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openInvitation() {
+            const envelope = document.querySelector('.envelope-wrapper');
+            envelope.classList.add('open');
+        }
+    </script>
+</body>
+</html>
